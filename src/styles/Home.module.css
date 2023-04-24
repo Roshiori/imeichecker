@@ -1,6 +1,9 @@
 .main{
-  background-color: white;
-  margin-left: 50px;
-  margin-right: 50px;
+  background-color: rgb(255, 255, 255);
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 15px;
+  width: 80vw;
+  max-width: 1440px;
   height: 100vh;
 }

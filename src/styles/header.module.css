@@ -1,0 +1,7 @@
+.main{
+    background-color: rgb(74, 97, 89);
+    height: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

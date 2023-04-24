@@ -1,4 +1,4 @@
-import { Button, Input, withDefaultVariant } from "@chakra-ui/react";
+import { Button, Input, Stack, withDefaultVariant } from "@chakra-ui/react";
 import React from "react";
 import Result from "./result";
 
@@ -21,6 +21,7 @@ const TextBox = () => {
       <SbContext.Provider value={sbstate}>
         <AuContext.Provider value={austate}>
           <RmContext.Provider value={rmstate}>
+            <Stack>
             <Input
               placeholder="IMEI(製造番号)を入力"
               value={imeiNum}
@@ -29,6 +30,7 @@ const TextBox = () => {
             <Button onClick={submitIMEI}>確認</Button>
             <p>IMEI: {imeiNum}</p>
             <Result/>
+            </Stack>
           </RmContext.Provider>
         </AuContext.Provider>
       </SbContext.Provider>
