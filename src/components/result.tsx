@@ -10,7 +10,6 @@ const Result = () => {
   return (
     <>
       <Stack>
-        <p>Result</p>
         <ResultCard carrer="SoftBank/Y!mobile" status={SbContextValue} />
         <ResultCard carrer="au/UQ mobile" status={AuContextValue} />
         <ResultCard carrer="楽天モバイル" status={RmContextValue} />

@@ -13,19 +13,19 @@ const inter = Inter({ subsets: ["latin"] });
 export default function Home() {
   return (
     <>
-      <Header />
-      <div className={styles.main}>
+      <div className={styles.wrapper}>
+        <Header />
         <Stack>
-          <main>
+          <main className={styles.main}>
             <p>
-              携帯電話がネットワーク利用制限の対象か複数キャリアで同時にチェックします。
+              携帯電話がネットワーク利用制限の対象か複数キャリアで同時にチェックします. 中古/ジャンク端末購入時の参考にどうぞ. 
             </p>
             <TextBox />
             <Description />
           </main>
         </Stack>
+        <Footer />
       </div>
-      <Footer/>
     </>
   );
 }

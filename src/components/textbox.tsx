@@ -13,6 +13,13 @@ const TextBox = () => {
   const [rmstate, setRmstate] = React.useState("N/A");
 
   const submitIMEI = () => {
+    async() => {
+      const SubmittedIMEI: string = JSON.stringify(imeiNum);
+      await fetch ("/api/getrestrictionvalue", {
+        method: "POST", 
+        body: SubmittedIMEI
+      }).then      
+    } 
     setSbstate("まる");
   };
 
@@ -22,14 +29,14 @@ const TextBox = () => {
         <AuContext.Provider value={austate}>
           <RmContext.Provider value={rmstate}>
             <Stack>
-            <Input
-              placeholder="IMEI(製造番号)を入力"
-              value={imeiNum}
-              onChange={(e) => setImeiNum(e.target.value)}
-            />
-            <Button onClick={submitIMEI}>確認</Button>
-            <p>IMEI: {imeiNum}</p>
-            <Result/>
+              <Input
+                placeholder="IMEI(製造番号)を入力"
+                value={imeiNum}
+                onChange={(e) => setImeiNum(e.target.value)}
+              />
+              <Button onClick={submitIMEI}>確認</Button>
+              <p>IMEI: {imeiNum}</p>
+              <Result />
             </Stack>
           </RmContext.Provider>
         </AuContext.Provider>
