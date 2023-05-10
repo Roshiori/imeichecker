@@ -9,11 +9,11 @@ import React from "react";
 import Result from "./result";
 import { error } from "console";
 
-import {
+/*import {
   sbrespondResult,
   aurespondResult,
   rmrespondResult,
-} from "@/pages/api/getrestrictionvalue";
+} from "api/getrestrictionvalue";*/
 
 export const SbContext = React.createContext("");
 export const AuContext = React.createContext("");
