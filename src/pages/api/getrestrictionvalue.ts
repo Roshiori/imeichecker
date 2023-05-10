@@ -1,4 +1,4 @@
-import * as puppeteer from "puppeteer-core";
+const puppeteer = require("puppeteer-core");
 import { executablePath } from "puppeteer-core";
 const chromium = require("chrome-aws-lambda");
 import { NextApiRequest, NextApiResponse } from "next";
