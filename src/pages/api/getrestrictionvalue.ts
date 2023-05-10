@@ -41,7 +41,7 @@ export default async (req: NextApiRequest, res: NextApiResponse<Data>) => {
     } else if (sbResult == "－") {
       sbrespondResult = "-";
     }
-
+/*
     //au/UQ
     await page.goto("https://my.au.com/cmn/WCV009001/WCE009001.hc");
     await page.type('input[name="IMEI"]', req.body);
@@ -109,6 +109,12 @@ export default async (req: NextApiRequest, res: NextApiResponse<Data>) => {
       {
         "restriction": rmrespondResult,
       }
+    ]);
+*/
+    res.status(200).json([
+      {
+        "restriction": sbrespondResult,
+      },
     ]);
 
 
