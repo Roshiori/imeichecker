@@ -2,17 +2,21 @@ import * as puppeteer from "puppeteer-core";
 import { executablePath } from "puppeteer-core";
 const chromium = require("chrome-aws-lambda");
 import { NextApiRequest, NextApiResponse } from "next";
+import { json } from "stream/consumers";
+import { displayPartsToString } from "typescript";
 
 type Data = {
-  sbrestriction: number;
-  aurestriction: number;
-  rmrestriction: number;
+  restriction: string;
 }[];
+
+export let sbrespondResult: string = " ";
+export let aurespondResult: string = " ";
+export let rmrespondResult: string = " ";
 
 export default async (req: NextApiRequest, res: NextApiResponse<Data>) => {
   const browser = await puppeteer.launch({
-    channel: "chrome",
-    headless: false,
+    channel: chromium,
+    headless: true,
   });
   const page = await browser.newPage();
   try {
@@ -23,7 +27,6 @@ export default async (req: NextApiRequest, res: NextApiResponse<Data>) => {
       page.waitForNavigation({ waitUntil: "load" }),
       page.click('[name="ACT_TE001"]'),
     ]);
-    let sbrespondResult: number = 0;
     const [sbgetTag] = await page.$x(
       "/html/body/div[1]/table[2]/tbody/tr[2]/td/font"
     );
@@ -32,14 +35,14 @@ export default async (req: NextApiRequest, res: NextApiResponse<Data>) => {
       await sbgetTag.getProperty("textContent")
     ).jsonValue();
     console.log(sbResult);
-    if (sbResult == "⚪︎") {
-      sbrespondResult = 1;
+    if (sbResult == "○") {
+      sbrespondResult = "⚪︎";
     } else if (sbResult == "▲") {
-      sbrespondResult = 2;
+      sbrespondResult = "△";
     } else if (sbResult == "×") {
-      sbrespondResult = -1;
+      sbrespondResult = "×";
     } else if (sbResult == "－") {
-      sbrespondResult = 3;
+      sbrespondResult = "-";
     }
     console.log(sbrespondResult);
 
@@ -50,11 +53,12 @@ export default async (req: NextApiRequest, res: NextApiResponse<Data>) => {
       page.waitForNavigation({ waitUntil: "load" }),
       page.click('[name="次へ"]'),
     ]);
-    let aurespondResult: number = 0;
+
     let [augetTag] = await page.$x(
       "/html/body/div[1]/div[2]/div/div/div[2]/div[2]/div/div"
     );
-    if ([augetTag == null]) {
+
+    if (augetTag == null) {
       [augetTag] = await page.$x("/html/body/div[1]/div[2]/p");
     }
 
@@ -62,16 +66,16 @@ export default async (req: NextApiRequest, res: NextApiResponse<Data>) => {
       await augetTag.getProperty("textContent")
     ).jsonValue();
     console.log(auResult);
-    if (auResult == "⚪︎") {
-      aurespondResult = 1;
+    if (auResult == "○") {
+      aurespondResult = "⚪︎";
     } else if (auResult == "△") {
-      aurespondResult = 2;
+      aurespondResult = "△";
     } else if (auResult == "×") {
-      aurespondResult = -1;
+      aurespondResult = "×";
     } else if (auResult == "－") {
-      aurespondResult = 3;
+      aurespondResult = "-";
     } else {
-      aurespondResult = 3;
+      aurespondResult = "-";
     }
     console.log(aurespondResult);
 
@@ -82,7 +86,7 @@ export default async (req: NextApiRequest, res: NextApiResponse<Data>) => {
       page.waitForSelector("#search-result"),
       page.click("#search"),
     ]);
-    let rmrespondResult: number = 0;
+
     const [rmgetTag] = await page.$x(
       "/html/body/div/div/section/div/main/div/ul/li[2]/dl/dd"
     );
@@ -92,23 +96,30 @@ export default async (req: NextApiRequest, res: NextApiResponse<Data>) => {
     ).jsonValue();
     console.log(rmResult);
     if (rmResult == "⚪︎") {
-      rmrespondResult = 1;
+      rmrespondResult = "⚪︎";
     } else if (rmResult == "△") {
-      rmrespondResult = 2;
+      rmrespondResult = "△";
     } else if (rmResult == "×") {
-      rmrespondResult = -1;
+      rmrespondResult = "×";
     } else if (rmResult == "-") {
-      rmrespondResult = 3;
+      rmrespondResult = "-";
     }
     console.log(rmrespondResult);
 
     res.status(200).json([
       {
-        sbrestriction: sbrespondResult,
-        aurestriction: aurespondResult,
-        rmrestriction: rmrespondResult,
+        "restriction": sbrespondResult,
       },
+      {
+        "restriction": aurespondResult,
+      },
+      {
+        "restriction": rmrespondResult,
+      }
     ]);
+
+    console.log("end");
+
   } catch (error) {
     console.error(error);
   } finally {
