@@ -34,7 +34,6 @@ export default async (req: NextApiRequest, res: NextApiResponse<Data>) => {
     const sbResult = await (
       await sbgetTag.getProperty("textContent")
     ).jsonValue();
-    console.log(sbResult);
     if (sbResult == "○") {
       sbrespondResult = "⚪︎";
     } else if (sbResult == "▲") {
@@ -44,7 +43,6 @@ export default async (req: NextApiRequest, res: NextApiResponse<Data>) => {
     } else if (sbResult == "－") {
       sbrespondResult = "-";
     }
-    console.log(sbrespondResult);
 
     //au/UQ
     await page.goto("https://my.au.com/cmn/WCV009001/WCE009001.hc");
@@ -65,7 +63,6 @@ export default async (req: NextApiRequest, res: NextApiResponse<Data>) => {
     const auResult = await (
       await augetTag.getProperty("textContent")
     ).jsonValue();
-    console.log(auResult);
     if (auResult == "○") {
       aurespondResult = "⚪︎";
     } else if (auResult == "△") {
@@ -77,7 +74,6 @@ export default async (req: NextApiRequest, res: NextApiResponse<Data>) => {
     } else {
       aurespondResult = "-";
     }
-    console.log(aurespondResult);
 
     //Rakuten
     await page.goto("https://network.mobile.rakuten.co.jp/restriction/");
@@ -94,7 +90,7 @@ export default async (req: NextApiRequest, res: NextApiResponse<Data>) => {
     const rmResult = await (
       await rmgetTag.getProperty("textContent")
     ).jsonValue();
-    console.log(rmResult);
+
     if (rmResult == "⚪︎") {
       rmrespondResult = "⚪︎";
     } else if (rmResult == "△") {
@@ -104,7 +100,6 @@ export default async (req: NextApiRequest, res: NextApiResponse<Data>) => {
     } else if (rmResult == "-") {
       rmrespondResult = "-";
     }
-    console.log(rmrespondResult);
 
     res.status(200).json([
       {
@@ -118,7 +113,6 @@ export default async (req: NextApiRequest, res: NextApiResponse<Data>) => {
       }
     ]);
 
-    console.log("end");
 
   } catch (error) {
     console.error(error);
