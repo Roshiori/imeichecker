@@ -1,5 +1,5 @@
 import * as puppeteer from "puppeteer-core";
-//import { executablePath } from "puppeteer-core";
+import { executablePath } from "puppeteer-core";
 const chromium = require("chrome-aws-lambda");
 import { NextApiRequest, NextApiResponse } from "next";
 
@@ -13,8 +13,9 @@ export let rmrespondResult: string = " ";
 
 export default async (req: NextApiRequest, res: NextApiResponse<Data>) => {
   const browser = await puppeteer.launch({
-    channel: chromium,
-    headless: true,
+    args:chromium.args,
+    executablePath: await chromium.executablePath,
+    headless: chromium.headless,
   });
   const page = await browser.newPage();
   try {
@@ -41,7 +42,7 @@ export default async (req: NextApiRequest, res: NextApiResponse<Data>) => {
     } else if (sbResult == "－") {
       sbrespondResult = "-";
     }
-/*
+
     //au/UQ
     await page.goto("https://my.au.com/cmn/WCV009001/WCE009001.hc");
     await page.type('input[name="IMEI"]', req.body);
@@ -108,12 +109,6 @@ export default async (req: NextApiRequest, res: NextApiResponse<Data>) => {
       },
       {
         "restriction": rmrespondResult,
-      }
-    ]);
-*/
-    res.status(200).json([
-      {
-        "restriction": sbrespondResult,
       }
     ]);
 
