@@ -1,5 +1,5 @@
 const puppeteer = require("puppeteer-core");
-//const chromium = require("chrome-aws-lambda");
+const chromium = require("chrome-aws-lambda");
 import { NextApiRequest, NextApiResponse } from "next";
 
 type Data = {
@@ -12,9 +12,9 @@ export let rmrespondResult: string = " ";
 
 export default async (req: NextApiRequest, res: NextApiResponse<Data>) => {
   const browser = await puppeteer.launch({
-    //args:chromium.args,
-    //executablePath: await chromium.executablePath,
-    //headless: chromium.headless,
+    args:chromium.args,
+    executablePath: await chromium.executablePath,
+    headless: chromium.headless,
   });
   const page = await browser.newPage();
   try {
