@@ -7,7 +7,6 @@ import {
 } from "@chakra-ui/react";
 import React from "react";
 import Result from "./result";
-import { error } from "console";
 
 /*import {
   sbrespondResult,
@@ -31,7 +30,7 @@ const TextBox = () => {
     const paramIMEI = {
       imei: imeiNum,
     };
-    fetch("../api/getrestrictionvalue", {
+    fetch("/api/getrestrictionvalue", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

@@ -10,13 +10,14 @@ export let sbrespondResult: string = " ";
 export let aurespondResult: string = " ";
 export let rmrespondResult: string = " ";
 
-const restrictionVal = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
+const restrictionVal = async (
+  req: NextApiRequest,
+  res: NextApiResponse<Data>
+) => {
   const browser = await puppeteer.launch({
-    args: [...chromium.args, "--hide-scrollbars", "--disable-web-security"],
-    defaultViewport: chromium.defaultViewport,
+    args: chromium.args,
     executablePath: await chromium.executablePath,
-    headless: true,
-    ignoreHTTPSErrors: true,
+    headless: chromium.headless,
   });
   const page = await browser.newPage();
   try {
