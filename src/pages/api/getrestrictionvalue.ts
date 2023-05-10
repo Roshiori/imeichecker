@@ -10,7 +10,7 @@ export let sbrespondResult: string = " ";
 export let aurespondResult: string = " ";
 export let rmrespondResult: string = " ";
 
-export default async (req: NextApiRequest, res: NextApiResponse<Data>) => {
+const restrictionVal = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
   const browser = await puppeteer.launch({
     args: [...chromium.args, "--hide-scrollbars", "--disable-web-security"],
     defaultViewport: chromium.defaultViewport,
@@ -119,3 +119,5 @@ export default async (req: NextApiRequest, res: NextApiResponse<Data>) => {
     res.status(200).end();
   }
 };
+
+export default restrictionVal;
