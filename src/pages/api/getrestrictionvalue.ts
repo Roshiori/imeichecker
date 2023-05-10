@@ -12,9 +12,11 @@ export let rmrespondResult: string = " ";
 
 export default async (req: NextApiRequest, res: NextApiResponse<Data>) => {
   const browser = await puppeteer.launch({
-    args:chromium.args,
+    args: [...chromium.args, "--hide-scrollbars", "--disable-web-security"],
+    defaultViewport: chromium.defaultViewport,
     executablePath: await chromium.executablePath,
-    headless: chromium.headless,
+    headless: true,
+    ignoreHTTPSErrors: true,
   });
   const page = await browser.newPage();
   try {
@@ -101,17 +103,15 @@ export default async (req: NextApiRequest, res: NextApiResponse<Data>) => {
 
     res.status(200).json([
       {
-        "restriction": sbrespondResult,
+        restriction: sbrespondResult,
       },
       {
-        "restriction": aurespondResult,
+        restriction: aurespondResult,
       },
       {
-        "restriction": rmrespondResult,
-      }
+        restriction: rmrespondResult,
+      },
     ]);
-
-
   } catch (error) {
     console.error(error);
   } finally {
