@@ -1,9 +1,7 @@
 import * as puppeteer from "puppeteer-core";
-import { executablePath } from "puppeteer-core";
+//import { executablePath } from "puppeteer-core";
 const chromium = require("chrome-aws-lambda");
 import { NextApiRequest, NextApiResponse } from "next";
-import { json } from "stream/consumers";
-import { displayPartsToString } from "typescript";
 
 type Data = {
   restriction: string;
